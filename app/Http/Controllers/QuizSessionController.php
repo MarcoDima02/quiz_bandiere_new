@@ -59,7 +59,8 @@ class QuizSessionController extends Controller
         if (!isset($quiz['questions'][$quiz['current_question']])) {
             $questionData = $this->quizService->generateQuestion($quiz);
             
-            $quiz = $questionData['quiz']; // Quiz aggiornato dal service
+            // Aggiorna il quiz con i dati della domanda generata
+            $quiz = $questionData['quiz'];
             Session::put('quiz', $quiz);
         }
         
@@ -90,9 +91,6 @@ class QuizSessionController extends Controller
         
         // Aggiorna la sessione con il quiz modificato
         $quiz = $answerResult['quiz'];
-        
-        // Passa alla domanda successiva
-        $quiz['current_question']++;
         Session::put('quiz', $quiz);
         
         return view('quiz.answer', [
@@ -148,5 +146,20 @@ class QuizSessionController extends Controller
             'topScores' => $topScores,
             'showNameForm' => $showNameForm
         ]));
+    }
+    
+    public function nextQuestion()
+    {
+        $quiz = Session::get('quiz');
+        
+        if (!$quiz) {
+            return redirect()->route('quiz.index')->with('error', 'Quiz non trovato. Inizia un nuovo quiz.');
+        }
+        
+        // Incrementa alla domanda successiva
+        $quiz['current_question']++;
+        Session::put('quiz', $quiz);
+        
+        return redirect()->route('quiz.question');
     }
 }

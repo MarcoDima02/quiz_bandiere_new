@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html lang="it">
-<head>
+<html lang="it"                <div class="stat-card">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-number">{{ $avg_time_per_question }}s</div>
+                    <div class="stat-label">Tempo medio</div>
+                </div>ead>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Bandiere - Risultati</title>
@@ -22,17 +25,17 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon">✅</div>
-                    <div class="stat-number">{{ $correctAnswers }}</div>
+                    <div class="stat-number">{{ $correct_answers }}</div>
                     <div class="stat-label">Corrette</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">❌</div>
-                    <div class="stat-number">{{ $wrongAnswers }}</div>
+                    <div class="stat-number">{{ $wrong_answers }}</div>
                     <div class="stat-label">Sbagliate</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">⏱️</div>
-                    <div class="stat-number">{{ $avgTimePerQuestion }}s</div>
+                    <div class="stat-number">{{ $avg_time_per_question }}s</div>
                     <div class="stat-label">Tempo Medio</div>
                 </div>
             </div>

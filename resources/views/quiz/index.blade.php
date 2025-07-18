@@ -75,6 +75,8 @@
         <div class="quick-actions">
             <a href="{{ route('countries.index') }}" class="btn">📚 Esplora Paesi</a>
             <a href="{{ route('leaderboard.index') }}" class="btn">🏆 Classifica</a>
+            <a href="{{ route('memory.index') }}" class="btn">🧠 Memory Game</a>
+            <a href="{{ route('bonus.index') }}" class="btn">🎯 Gioco Bonus</a>
         </div>
     </div>
 

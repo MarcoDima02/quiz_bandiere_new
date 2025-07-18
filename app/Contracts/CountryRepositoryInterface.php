@@ -40,4 +40,19 @@ interface CountryRepositoryInterface
      * Ottieni statistiche dei paesi
      */
     public function getStats(): array;
+
+    /**
+     * Ottieni capitali casuali (per domande bonus)
+     */
+    public function getRandomCapitals(int $limit = 3, array $excludeIds = []): Collection;
+
+    /**
+     * Ottieni paesi casuali
+     */
+    public function getRandomCountries(int $limit = 1, array $excludeIds = []): Collection;
+
+    /**
+     * Ottieni paesi simili (per domande bonus)
+     */
+    public function getSimilarCountries(int $countryId, int $limit = 3): Collection;
 }

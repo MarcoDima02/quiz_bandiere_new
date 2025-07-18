@@ -46,7 +46,7 @@
             </div>
 
             @if($questionNumber < $totalQuestions)
-                <a href="{{ route('quiz.question') }}" class="next-btn">
+                <a href="{{ route('quiz.next') }}" class="next-btn">
                     ➡️ Prossima Domanda
                 </a>
             @else

@@ -37,9 +37,6 @@ class QuizService implements QuizServiceInterface
 
     public function generateQuestion(array $quiz): array
     {
-        // Incrementa numero domanda
-        $quiz['current_question']++;
-
         // Ottieni un paese casuale escludendo quelli già usati
         $countries = $this->countryRepository->getRandomForQuiz(
             $quiz['difficulty'],
@@ -81,7 +78,8 @@ class QuizService implements QuizServiceInterface
         return [
             'quiz' => $quiz,
             'country' => $country,
-            'answers' => $allAnswers
+            'answers' => $allAnswers,
+            'correct_answer_id' => $country->id
         ];
     }
 

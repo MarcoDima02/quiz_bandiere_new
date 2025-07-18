@@ -95,4 +95,57 @@ class CountryRepository implements CountryRepositoryInterface
                 ->toArray()
         ];
     }
+
+    public function getRandomCapitals(int $limit = 3, array $excludeIds = []): Collection
+    {
+        $query = $this->model->active()->whereNotNull('capital');
+
+        if (!empty($excludeIds)) {
+            $query->whereNotIn('id', $excludeIds);
+        }
+
+        return $query->inRandomOrder()->limit($limit)->get();
+    }
+
+    public function getRandomCountries(int $limit = 1, array $excludeIds = []): Collection
+    {
+        $query = $this->model->active();
+
+        if (!empty($excludeIds)) {
+            $query->whereNotIn('id', $excludeIds);
+        }
+
+        return $query->inRandomOrder()->limit($limit)->get();
+    }
+
+    public function getSimilarCountries(int $countryId, int $limit = 3): Collection
+    {
+        $country = $this->findById($countryId);
+        
+        if (!$country) {
+            return collect();
+        }
+
+        // Prima cerca paesi dello stesso continente
+        $similar = $this->model->active()
+                              ->where('id', '!=', $countryId)
+                              ->where('continent', $country->continent)
+                              ->inRandomOrder()
+                              ->limit($limit)
+                              ->get();
+
+        // Se non ci sono abbastanza paesi simili, aggiungi altri casuali
+        if ($similar->count() < $limit) {
+            $additional = $this->model->active()
+                                     ->where('id', '!=', $countryId)
+                                     ->whereNotIn('id', $similar->pluck('id'))
+                                     ->inRandomOrder()
+                                     ->limit($limit - $similar->count())
+                                     ->get();
+                                     
+            $similar = $similar->merge($additional);
+        }
+
+        return $similar;
+    }
 }

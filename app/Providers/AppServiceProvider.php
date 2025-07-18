@@ -6,9 +6,13 @@ use Illuminate\Support\ServiceProvider;
 use App\Contracts\CountryRepositoryInterface;
 use App\Contracts\QuizScoreRepositoryInterface;
 use App\Contracts\QuizServiceInterface;
+use App\Contracts\MemoryGameServiceInterface;
+use App\Contracts\BonusGameServiceInterface;
 use App\Repositories\CountryRepository;
 use App\Repositories\QuizScoreRepository;
 use App\Services\QuizService;
+use App\Services\MemoryGameService;
+use App\Services\BonusGameService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,12 +21,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Bind Repository Interfaces to Implementations
+                // Binding dei Repository
         $this->app->bind(CountryRepositoryInterface::class, CountryRepository::class);
         $this->app->bind(QuizScoreRepositoryInterface::class, QuizScoreRepository::class);
         
-        // Bind Service Interfaces to Implementations
+        // Binding dei Service
         $this->app->bind(QuizServiceInterface::class, QuizService::class);
+        $this->app->bind(MemoryGameServiceInterface::class, MemoryGameService::class);
+        $this->app->bind(BonusGameServiceInterface::class, BonusGameService::class);
     }
 
     /**
